@@ -22,3 +22,6 @@ Responsive Design – Works beautifully on mobile, tablet, and desktop.
 ┣ 📜 script.js      # Filtering logic & dynamic rendering
 
 ┗ 📜 README.md      # Project documentation
+# Screenshot
+<img width="1871" height="910" alt="Screenshot 2025-08-12 152027" src="https://github.com/user-attachments/assets/ac92770a-2886-4a40-aec1-5ad2f21863b8" />
+
