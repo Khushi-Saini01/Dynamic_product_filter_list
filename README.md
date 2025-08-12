@@ -11,8 +11,7 @@ Live Search – Instant product search with keyword matching.
 Smooth Animations – Fade-in and hover zoom effects for a polished look.
 
 Responsive Design – Works beautifully on mobile, tablet, and desktop.
-
-#📂 Project Structure
+# 📂 Project Structure
 
 #📦 dynamic-product-filter
 
