@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Dynamic Product Filter with Images & Animations</title>
+<style>
+  * { box-sizing: border-box; }
+  body {
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(135deg, #a8edea, #fed6e3);
+    margin: 0; padding: 40px;
+    color: #333;
+  }
+  h2 {
+    text-align: center;
+    margin-bottom: 30px;
+  }
+  .container {
+    background: #fff;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    max-width: 1000px;
+    margin: auto;
+  }
+  .filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+  select, input {
+    padding: 10px;
+    font-size: 15px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    flex: 1;
+    min-width: 150px;
+    transition: 0.3s;
+  }
+  select:hover, input:hover,
+  select:focus, input:focus {
+    border-color: #007BFF;
+    box-shadow: 0 0 8px rgba(0,123,255,0.4);
+    outline: none;
+  }
+  .product-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+  }
+  .product {
+    background: #f9f9f9;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    transform: translateY(20px);
+    opacity: 0;
+    animation: fadeSlideIn 0.5s forwards;
+  }
+  .product img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+  }
+  .product:hover img {
+    transform: scale(1.08);
+  }
+  .product-info {
+    padding: 10px;
+    text-align: center;
+  }
+  .product-info h4 {
+    margin: 5px 0;
+    font-size: 16px;
+  }
+  .product-info p {
+    margin: 0;
+    font-size: 14px;
+    color: #666;
+  }
+  @keyframes fadeSlideIn {
+    to { opacity: 1; transform: translateY(0); }
+  }
+</style>
+</head>
+<body>
+
+<h2>🛍️ Fancy Product Filter</h2>
+<div class="container">
+  <!-- Filters -->
+  <div class="filters">
+    <select id="categoryFilter">
+      <option value="All">All Categories</option>
+      <option value="Clothing">Clothing</option>
+      <option value="Electronics">Electronics</option>
+      <option value="Books">Books</option>
+    </select>
+    <select id="priceFilter">
+      <option value="All">All Prices</option>
+      <option value="low">Under $50</option>
+      <option value="mid">$50 - $200</option>
+      <option value="high">Above $200</option>
+    </select>
+    <input type="text" id="searchInput" placeholder="Search products...">
+  </div>
+
+  <!-- Product List -->
+  <div class="product-list" id="productList"></div>
+</div>
+
+<script>
+const products = [
+  { name: 'Jeans', category: 'Clothing', price: 25, img: 'https://thejeansblog.com/wp-content/uploads/2021/12/Mens-Jeans-Colors-featured-image.jpg' },
+  { name: 'T-shirts', category: 'Clothing', price: 60, img: 'https://images.unsplash.com/photo-1512436991641-6745cdb1723f?auto=format&fit=crop&w=400&q=80' },
+  { name: 'Headphones', category: 'Electronics', price: 120, img: 'https://content.api.news/v3/images/bin/700b74a70c2fb8fd410208ec3b09a355' },
+  { name: 'Smartphone', category: 'Electronics', price: 300, img: 'https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=400&q=80' },
+  { name: 'Novel', category: 'Books', price: 15, img: 'https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?auto=format&fit=crop&w=400&q=80' },
+  { name: 'Cookbook', category: 'Books', price: 40, img: 'https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=400&q=80' }
+];
+
+const categoryFilter = document.getElementById('categoryFilter');
+const priceFilter = document.getElementById('priceFilter');
+const searchInput = document.getElementById('searchInput');
+const productList = document.getElementById('productList');
+
+function displayProducts() {
+  productList.innerHTML = '';
+
+  let filtered = products.filter(p => {
+    let categoryMatch = categoryFilter.value === 'All' || p.category === categoryFilter.value;
+    let priceMatch =
+      priceFilter.value === 'All' ||
+      (priceFilter.value === 'low' && p.price < 50) ||
+      (priceFilter.value === 'mid' && p.price >= 50 && p.price <= 200) ||
+      (priceFilter.value === 'high' && p.price > 200);
+    let searchMatch = p.name.toLowerCase().includes(searchInput.value.toLowerCase());
+    return categoryMatch && priceMatch && searchMatch;
+  });
+
+  filtered.forEach((p, i) => {
+    const productDiv = document.createElement('div');
+    productDiv.className = 'product';
+    productDiv.style.animationDelay = `${i * 0.1}s`; // stagger animation
+    productDiv.innerHTML = `
+      <img src="${p.img}" alt="${p.name}">
+      <div class="product-info">
+        <h4>${p.name}</h4>
+        <p>${p.category} | $${p.price}</p>
+      </div>
+    `;
+    productList.appendChild(productDiv);
+  });
+}
+
+categoryFilter.addEventListener('change', displayProducts);
+priceFilter.addEventListener('change', displayProducts);
+searchInput.addEventListener('input', displayProducts);
+
+// Initialize
+displayProducts();
+</script>
+
+</body>
+</html>
