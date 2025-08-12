@@ -15,7 +15,11 @@ Responsive Design – Works beautifully on mobile, tablet, and desktop.
 #📂 Project Structure
 
 #📦 dynamic-product-filter
- ┣ 📜 index.html     # Main HTML structure
- ┣ 📜 style.css      # Styling & animations
- ┣ 📜 script.js      # Filtering logic & dynamic rendering
- ┗ 📜 README.md      # Project documentation
+
+┣ 📜 index.html     # Main HTML structure
+
+┣ 📜 style.css      # Styling & animations
+
+┣ 📜 script.js      # Filtering logic & dynamic rendering
+
+┗ 📜 README.md      # Project documentation
